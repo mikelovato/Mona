@@ -1,6 +1,6 @@
 ## Overview
 This project builds a knowledge graph using Google Scholar profiles of NUS SOC professors. 
-![Overview](data/knowledge_graph.png)
+![Overview](data/kg.png)
 
 ## Prerequisites
 - Docker
