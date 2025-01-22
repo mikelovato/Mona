@@ -2,6 +2,9 @@
 This project builds a knowledge graph using Google Scholar profiles of NUS SOC professors. 
 ![Overview](data/kg.png)
 
+[Neo4J Address](127.0.0.1:7474)
+
+
 ## Prerequisites
 - Docker
 - Docker Compose
