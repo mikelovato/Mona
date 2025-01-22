@@ -15,7 +15,7 @@ This project builds a knowledge graph using Google Scholar profiles of NUS SOC p
 
 2. Run the project with Docker Compose:
     ```sh
-    docker-compose up
+    docker-compose up --build
     ```
 
 ## Testing
