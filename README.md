@@ -1,8 +1,6 @@
-# Mona
-a complete knowledge diagram about google scholar profile
-
 ## Overview
 This project builds a knowledge graph using Google Scholar profiles of NUS SOC professors. 
+[Overview](https://github.com/mikelovato/Mona/blob/main/data/knowledge_graph.pdf)
 
 ## Prerequisites
 - Docker
