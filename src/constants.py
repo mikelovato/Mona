@@ -1,0 +1,2 @@
+GetKeywordPrompt = "Please analyze the article called \"{article}\" and identify top five key concepts as keywords, don't include extraneous information."
+GoogleScholarURL = "https://scholar.google.com/citations?user="

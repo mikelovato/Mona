@@ -1,7 +1,9 @@
 from openai import OpenAI
+import os
+import requests
 
 client = OpenAI(
-    api_key="-----"  # This is the default and can be omitted
+    api_key="OPENAI_API_KEY" #  This is the default and can be omitted
 )
 
 def CallGPT(prompt):
@@ -15,7 +17,9 @@ def CallGPT(prompt):
         model="gpt-4o-mini",
     )
     if 'choices' in chat_completion:
-    return chat_completion
+        return chat_completion
+    else:
+        return {}  
 
 if __name__ == "__main__":
     user_prompt = "What are the benefits of using ChatGPT?"
