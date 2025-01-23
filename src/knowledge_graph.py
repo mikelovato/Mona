@@ -8,13 +8,18 @@ class KnowledgeGraph:
             auth=("neo4j", "password")
         )
     
-    def query(self, keyword):
+    def querytwoprof(self, keyword1, keyword2):
         with self.driver.session() as session:
-            result = session.run("MATCH (n) WHERE n.name=$keyword RETURN n", keyword=keyword)
-            return [record["n"] for record in result]
+            result = session.run("MATCH path = (a:Prof {name: '"+keyword1.replace("'", "\"")+"'})-[*]->()<-[*]-(b:Prof {name:'"+keyword2.replace("'", "\"")+"'}) UNWIND nodes(path) AS node WITH DISTINCT node RETURN node")
+            return result.data()
     
+    def queryConcept(self, keyword):
+        with self.driver.session() as session:
+            result = session.run("MATCH path = (a:Prof {name: '"+keyword.replace("'", "\"")+"'})-[*]->(c:Concept) WITH DISTINCT c return c")
+            return result.data()
+        
     def __replace_space__(self, s):
-        return s.replace(" ", "-")
+        return s.replace("'", "\"")
 
     
     def insert(self, label, name, properties):
@@ -24,7 +29,7 @@ class KnowledgeGraph:
         name = self.__replace_space__(name)
         propertiesList = []
         for i in properties:
-            propertiesList.append(f"{i}: '{properties[i]}'")
+            propertiesList.append(f"{i}: '{self.__replace_space__(properties[i])}'")
         propertiesStr = ", ".join(propertiesList)
 
         with self.driver.session() as session:
