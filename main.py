@@ -17,7 +17,7 @@ kg = KnowledgeGraph()
 def init_knowledge_graph():
     for professor in professorMap:
         print(f"Sync data for professor: {professor}")
-        articles = get_article_list(constants.GoogleScholarURL + professor)
+        articles = get_article_list(constants.GoogleScholarURL.format(user=professor))
         kg.insert("Prof", 'n', {
             "name" :  professorMap[professor],
             "account": professorMap[professor]+ "@nus.edu.sg"

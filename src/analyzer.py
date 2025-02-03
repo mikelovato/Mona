@@ -25,7 +25,7 @@ def CallGPT(prompt):
     try:
         return chat_completion.choices[0].message.content
     except:
-        return {}
+        return ""
 
 if __name__ == "__main__":
     user_prompt = "What are the benefits of using ChatGPT?"
