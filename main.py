@@ -59,8 +59,7 @@ def main():
     # wait for the neo4j to start
     time.sleep(8)
 
-    # init_knowledge_graph()
-    
+    init_knowledge_graph()
     app = Flask(__name__)
 
     @app.route('/analyze', methods=['POST'])
@@ -74,14 +73,6 @@ def main():
         
     
         return jsonify({"r":','.join(get_professor_relation_graph(keyword1, keyword2))})
-            
-        # # Analyze the search results using GPT
-        # analysis = CallGPTPrivate(constants.GetAnalysisPrompt.format(keyword=keyword, results=search_results))
-        # results.append({
-        #     "keyword": keyword,
-        #     "analysis": analysis
-        # })
-        return jsonify(results)
     
     @app.route('/gpt', methods=['POST'])
     def gpt():
@@ -108,7 +99,7 @@ def main():
     def search():
         init_knowledge_graph()
         return jsonify({"status": "success"})
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    app.run(debug=False, host='0.0.0.0', port=8000)
 
 
 
