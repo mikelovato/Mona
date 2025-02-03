@@ -33,11 +33,19 @@ class KnowledgeGraph:
         propertiesStr = ", ".join(propertiesList)
 
         with self.driver.session() as session:
-            session.run(f"CREATE ({name}:{label} {{{propertiesStr}}})")
+            try:
+                session.run(f"CREATE ({name}:{label} {{{propertiesStr}}})")
+            except Exception as e:
+                print(e)
+                pass
     
     def insert_connection(self, name1, name2, relation="HAVE"):
         with self.driver.session() as session:
-            session.run("MATCH (a {name: '"+ name1+"'}), (b {name: '"+name2+"'}) CREATE (a)-[r:"+relation+"]->(b)")
+            try:
+                session.run("MATCH (a {name: '"+ name1+"'}), (b {name: '"+name2+"'}) CREATE (a)-[r:"+relation+"]->(b)")
+            except Exception as e:
+                print(e)
+                pass
 
 if __name__ == "__main__":
     kg = KnowledgeGraph()
