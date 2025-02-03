@@ -9,7 +9,8 @@ from flask import Flask, request, jsonify
 professorMap = {
     "Tb1prqkAAAAJ": "Warut SUKSOMPONG",
     "t-sqBkIAAAAJ": "Yao Lu",
-    "lkgd1BsAAAAJ": "Harold SOH"
+    "lkgd1BsAAAAJ": "Harold SOH",
+    "tuLa1AsAAAAJ": "Jin Song Dong",
 }
 kg = KnowledgeGraph()
 
