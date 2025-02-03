@@ -1,5 +1,5 @@
 ## Overview
-This project builds a knowledge graph using Google Scholar profiles of NUS SOC professors. 
+This project builds a knowledge graph using Google Scholar profile of NUS SOC professors. 
 ![Overview](data/kg.png)
 
 ## outcome
