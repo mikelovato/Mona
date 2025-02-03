@@ -89,10 +89,10 @@ def main():
         if len(prof_list) == 2:
             prof1_strength = ','.join(get_professor_strength(prof_list[0]))
             prof2_strength = ','.join(get_professor_strength(prof_list[1]))
-            prompt = prompt + "," +prof_list[1] +"'s research stregth is in" + prof2_strength +", "+prof_list[0] +"'s research stregth is in" + prof1_strength + "their common interest is" + ','.join(get_professor_relation_graph(prof_list[0], prof_list[1]))
+            prompt = prompt + "," +prof_list[1] +"'s research strength is in" + prof2_strength +", "+prof_list[0] +"'s research stregth is in" + prof1_strength + "their common interest is" + ','.join(get_professor_relation_graph(prof_list[0], prof_list[1]))
         elif len(prof_list) == 1:
             prof1_strength = ','.join(get_professor_strength(prof_list[0]))
-            prompt = prompt + "," +prof_list[0] +"'s research stregth is in" + prof1_strength
+            prompt = prompt + "," +prof_list[0] +"'s research strength is in" + prof1_strength
         
         return jsonify({"response": CallGPT(prompt)})
     

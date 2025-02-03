@@ -22,10 +22,10 @@ def CallGPT(prompt):
         ],
         model="gpt-4o-mini",
     )
-    if 'choices' in chat_completion:
-        return chat_completion
-    else:
-        return {}  
+    try:
+        return chat_completion.choices[0].message.content
+    except:
+        return {}
 
 if __name__ == "__main__":
     user_prompt = "What are the benefits of using ChatGPT?"
