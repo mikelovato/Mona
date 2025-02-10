@@ -7,10 +7,17 @@ import time
 from flask import Flask, request, jsonify
 
 professorMap = {
+    # computing
     "Tb1prqkAAAAJ": "Warut SUKSOMPONG",
-    "t-sqBkIAAAAJ": "Yao Lu",
     "lkgd1BsAAAAJ": "Harold SOH",
     "tuLa1AsAAAAJ": "Jin Song Dong",
+
+    # biomedical
+    "8gxJywsAAAAJ": "Christopher L. Asplund",
+    "U6U0Sj8AAAAJ": "Bina Rai",
+
+    # chemistry
+    "6eBvENEAAAAJ": "Kian Ping Loh",
 }
 kg = KnowledgeGraph()
 
@@ -28,6 +35,7 @@ def init_knowledge_graph():
                 'name': article['title'],
                 'journal': article['journal'],
                 'href': article['href'],
+                'cite': article['cite'],
             })
             kg.insert_connection(professorMap[professor], article['title'], "YEAR {year:"+str(article['year'])+"}")
             print(f"Title: {article['title']}")
