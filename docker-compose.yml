@@ -24,8 +24,6 @@ services:
     volumes:
       - ./src:/app/src
       - ./logs:/app/logs
-    env_file:
-      - .env
     ports:
       - "8000:8000"  
 
