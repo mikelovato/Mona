@@ -1,4 +1,4 @@
-from src.scraper import get_article_list
+from src.scraper import get_article_list, get_wikidata_keyword
 from src.analyzer import CallGPT
 import src.constants as constants
 # from src.analyzer import analyze_keywords
@@ -43,9 +43,15 @@ def init_knowledge_graph():
             keywords = keywords.split("\n")
             
             for k in keywords:
-                print(k[2:].strip())
-                kg.insert("Concept", 'c', {'name': k[2:].strip()})
-                kg.insert_connection(article['title'], k[2:].strip())
+                k = k.split('(')[0]
+                normalize = get_wikidata_keyword(k[2:].strip().strip('*'))
+                name = k[2:].strip().strip('*')
+                if 'label' in normalize:
+                    name = normalize['label']
+                else:
+                    continue
+                kg.insert("Concept", 'c', {'name': name})
+                kg.insert_connection(article['title'], name)
 
 def get_professor_relation_graph(professor1, professor2):
     search_results = kg.querytwoprof(professor1, professor2)

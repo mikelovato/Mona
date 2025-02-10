@@ -39,7 +39,7 @@ def get_article_description(article_url):
         return description_div.text.strip()
     return "No description available"
 
-def get_wikidata_keyword_id(keyword):
+def get_wikidata_keyword(keyword):
     url = "https://www.wikidata.org/w/api.php"
     params = {
         "action": "wbsearchentities",
@@ -49,9 +49,8 @@ def get_wikidata_keyword_id(keyword):
         "limit": 1,
     }
     response = requests.get(url, params=params).json()
-    
-    if "search" in response:
-        return response["search"][0]['id']
+    if "search" in response and response['search']:
+        return response["search"][0]
     else:
         return {}
     
@@ -72,8 +71,11 @@ def get_entity_properties(entity_id):
         return {}
     
 def find_relationships(keyword1, keyword2):
-    entity1 = get_wikidata_keyword_id(keyword1)
-    entity2 = get_wikidata_keyword_id(keyword2)
+    try:
+        entity1 = get_wikidata_keyword(keyword1)['id']
+        entity2 = get_wikidata_keyword(keyword2)['id']
+    except:
+        return
 
     if not entity1 or not entity2:
         print("One or both entities not found.")
@@ -88,17 +90,18 @@ def find_relationships(keyword1, keyword2):
         for v in values:
             if "mainsnak" in v and "datavalue" in v["mainsnak"]:
                 try: 
-                    if v["mainsnak"]["datavalue"].get("value", {}).get("id") == entity2:
+                    if v["mainsnak"]["datavalue"].get("value", {}).get("id") == str(entity2):
                         print(f"{keyword1} ({entity1}) → {prop} → {keyword2} ({entity2})")
                 except Exception as e:
+                    print(e)
                     continue
 
-
-
-
-
 if __name__ == "__main__":
-    find_relationships("compute", "math")
+    # find_relationships("compute", "math")
+
+    entity_name = "Micro soft"
+    prop = get_wikidata_keyword(entity_name)
+    print(f"Original: {entity_name} → Standardized: {prop['label']} (ID: {prop['id']})")
 
     # author_url = "https://scholar.google.com/citations?user=q-MnrLcAAAAJ"
     # articles = get_article_list(author_url)
