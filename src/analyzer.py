@@ -6,7 +6,7 @@ import os
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
-from src.constants import mysecret
+from src.secret import mysecret
 
 client = OpenAI(
     api_key= mysecret #  This is the default and can be omitted

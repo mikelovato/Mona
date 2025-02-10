@@ -19,12 +19,14 @@ def get_article_list(author_url):
         authors = row.find('div', class_='gs_gray').text
         journal = row.find_all('div', class_='gs_gray')[1].text
         year = row.find('span', class_='gsc_a_h gsc_a_hc gs_ibl').text
+        cite = row.find('a', class_='gsc_a_ac gs_ibl').text
         articles.append({
             'title': title,
             'authors': authors,
             'journal': journal,
             'year': year,
             'href': href,
+            'cite': cite,
         })
 
     return articles
@@ -46,6 +48,7 @@ if __name__ == "__main__":
         print(f"Authors: {article['authors']}")
         print(f"Journal: {article['journal']}")
         print(f"Year: {article['year']}")
+        print(f"Cite: {article['cite']}")
         article_url = f"https://scholar.google.com{article['href']}"
         print(f"URL: {article_url}")
         description = get_article_description(article_url)
