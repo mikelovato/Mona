@@ -2,6 +2,7 @@ from neo4j import GraphDatabase
 import os
 
 class KnowledgeGraph:
+    insertkey = []
     def __init__(self):
         self.driver = GraphDatabase.driver(
             "bolt://neo4j:7687",
@@ -27,6 +28,10 @@ class KnowledgeGraph:
         # name = "Yao Lu"
         # properties = {"name":"Yao Lu", "birthday": "1983"}
         name = self.__replace_space__(name)
+        if name in self.insertkey:
+            return
+        else:
+            self.insertkey.append(name)
         propertiesList = []
         for i in properties:
             propertiesList.append(f"{i}: '{self.__replace_space__(properties[i])}'")
@@ -38,6 +43,17 @@ class KnowledgeGraph:
             except Exception as e:
                 print(e)
                 pass
+
+    def check_node_exists(self, name):
+        with self.driver.session() as session:
+            try:
+                query = "OPTIONAL MATCH (n {name: '"+name+"'}) RETURN n"
+                result = session.run(query)
+                print(len(result.data()))
+                return len(result.data())
+            except Exception as e:
+                print(e)
+                return 0
     
     def insert_connection(self, name1, name2, relation="HAVE"):
         with self.driver.session() as session:

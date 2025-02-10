@@ -27,7 +27,7 @@ def init_knowledge_graph():
         articles = get_article_list(constants.GoogleScholarURL.format(user=professor))
         kg.insert("Prof", 'n', {
             "name" :  professorMap[professor],
-            "account": professorMap[professor]+ "@nus.edu.sg"
+            # "account": professorMap[professor]+ "@nus.edu.sg"
         })
    
         for article in articles:
@@ -36,8 +36,9 @@ def init_knowledge_graph():
                 'journal': article['journal'],
                 'href': article['href'],
                 'cite': article['cite'],
+                'year': article['year'],
             })
-            kg.insert_connection(professorMap[professor], article['title'], "YEAR {year:"+str(article['year'])+"}")
+            kg.insert_connection(professorMap[professor], article['title']) # , "YEAR {year:"+str(article['year'])+"}"
             print(f"Title: {article['title']}")
             keywords = CallGPT(constants.GetKeywordPrompt.format(article=article['title']))
             keywords = keywords.split("\n")
