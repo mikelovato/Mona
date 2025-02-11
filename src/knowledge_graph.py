@@ -28,10 +28,8 @@ class KnowledgeGraph:
         # name = "Yao Lu"
         # properties = {"name":"Yao Lu", "birthday": "1983"}
         name = self.__replace_space__(name)
-        if name in self.insertkey:
+        if 'name' not in properties or self.check_node_exists(self.__replace_space__(properties['name'])):
             return
-        else:
-            self.insertkey.append(name)
         propertiesList = []
         for i in properties:
             propertiesList.append(f"{i}: '{self.__replace_space__(properties[i])}'")
@@ -48,9 +46,10 @@ class KnowledgeGraph:
         with self.driver.session() as session:
             try:
                 query = "OPTIONAL MATCH (n {name: '"+name+"'}) RETURN n"
-                result = session.run(query)
-                print(len(result.data()))
-                return len(result.data())
+                result = session.run(query).data()
+                if len(result)>1 or 'None' not in str(result):
+                    return 1
+                return 0
             except Exception as e:
                 print(e)
                 return 0

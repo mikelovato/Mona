@@ -1,4 +1,4 @@
-GetKeywordPrompt = "Please analyze the article called \"{article}\" and identify top five key concepts as keywords, these keywords should normalize in wikidata and don't include extraneous information."
+GetKeywordPrompt = "Extract exactly five key concepts as keywords from the article \"{article}\" and normalise in the Wikidata. Output only the keywords as a numbered list, without any additional text."
 GetCooperateSuggestion = "Suggest how to cooperate between {professor1} and {professor2}, their common interest is {common_interest}, {professor1} {professor1_interest}, {professor2} {professor2_interest}"
 GetAnalysisProfessor = "Give me a brief analysis of the research interests and strength of {professor}"
 GoogleScholarURL = "https://scholar.google.com/citations?user={user}&cstart=0&pagesize=30"

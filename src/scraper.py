@@ -101,6 +101,7 @@ if __name__ == "__main__":
 
     entity_name = "Micro soft"
     prop = get_wikidata_keyword(entity_name)
+    print(prop)
     print(f"Original: {entity_name} → Standardized: {prop['label']} (ID: {prop['id']})")
 
     # author_url = "https://scholar.google.com/citations?user=q-MnrLcAAAAJ"

@@ -34,24 +34,26 @@ def init_knowledge_graph():
             kg.insert("Paper", 'n', {
                 'name': article['title'],
                 'journal': article['journal'],
-                'href': article['href'],
+                'href': 'https://scholar.google.com'+article['href'],
                 'cite': article['cite'],
                 'year': article['year'],
             })
-            kg.insert_connection(professorMap[professor], article['title']) # , "YEAR {year:"+str(article['year'])+"}"
-            print(f"Title: {article['title']}")
+            kg.insert_connection(professorMap[professor], article['title'], "YEAR {year:"+str(article['year'])+"}")
+            
             keywords = CallGPT(constants.GetKeywordPrompt.format(article=article['title']))
             keywords = keywords.split("\n")
             
             for k in keywords:
-                k = k.split('(')[0]
                 normalize = get_wikidata_keyword(k[2:].strip().strip('*'))
                 name = k[2:].strip().strip('*')
+                uri = ""
                 if 'label' in normalize:
                     name = normalize['label']
                 else:
                     continue
-                kg.insert("Concept", 'c', {'name': name})
+                if 'concepturi' in normalize:
+                    uri = normalize['concepturi']
+                kg.insert("Concept", 'c', {'name': name, 'uri':uri})
                 kg.insert_connection(article['title'], name)
 
 def get_professor_relation_graph(professor1, professor2):
