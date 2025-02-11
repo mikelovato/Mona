@@ -22,6 +22,7 @@ professorMap = {
 kg = KnowledgeGraph()
 
 def init_knowledge_graph():
+    kg.clear_knowledge_graph()
     for professor in professorMap:
         print(f"Sync data for professor: {professor}")
         articles = get_article_list(constants.GoogleScholarURL.format(user=professor))

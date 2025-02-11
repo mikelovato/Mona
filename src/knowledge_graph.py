@@ -53,6 +53,14 @@ class KnowledgeGraph:
             except Exception as e:
                 print(e)
                 return 0
+            
+    def clear_knowledge_graph(self):
+        with self.driver.session() as session:
+            try:
+                query = "MATCH (n) DETACH DELETE (n)"
+                session.run(query)
+            except Exception as e:
+                print(e)
     
     def insert_connection(self, name1, name2, relation="HAVE"):
         with self.driver.session() as session:
